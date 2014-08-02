@@ -15,8 +15,9 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Game.Osu.OszLoader
+                       Game.Osu.OszLoader.Types
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.7 && <4.8
+  build-depends:       base >=4.7 && <4.8, text, attoparsec, containers
   hs-source-dirs:      src
   default-language:    Haskell2010
