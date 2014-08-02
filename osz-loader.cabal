@@ -15,6 +15,9 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Game.Osu.OszLoader
+                       Game.Osu.OszLoader.OsuParser
+                       Game.Osu.OszLoader.OsuParser.General
+                       Game.Osu.OszLoader.OsuParser.Utils
                        Game.Osu.OszLoader.Types
   -- other-modules:
   -- other-extensions:

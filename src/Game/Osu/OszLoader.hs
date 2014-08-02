@@ -1,10 +1,5 @@
 {-# LANGUAGE UnicodeSyntax #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Game.Osu.OszLoader where
+module Game.Osu.OszLoader (parseOsu) where
 
-import Data.Text
-import Data.Attoparsec.Text
-import Game.Osu.OszLoader.Types
-
-parseOsu ∷ Text → Either Text OsuMap
-parseOsu = const $ Left "not implemented"
+import Game.Osu.OszLoader.OsuParser (parseOsu)

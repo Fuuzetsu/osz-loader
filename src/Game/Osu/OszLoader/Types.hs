@@ -11,15 +11,15 @@ data General = General
   , _previewTime ∷ Int
   , _countdown ∷ Bool
   , _sampleSet ∷ Text
-  , _stackLeniency ∷ Float
+  , _stackLeniency ∷ Double
   , _mode ∷ Int
   , _letterboxInBreaks ∷ Bool
-  , _widescreenStoryboard ∷ Bool
+  , _widescreenStoryboard ∷ Maybe Bool
   } deriving (Show, Eq)
 
 data Editor = Editor
   { _bookmarks ∷ Int
-  , _distanceSpacing ∷ Float
+  , _distanceSpacing ∷ Double
   , _beatDivisor ∷ Int
   , _gridSize ∷ Int
   , _timelineZoom ∷ Int
@@ -43,8 +43,8 @@ data Difficulty = Difficulty
   , _circleSize ∷ Int
   , _overallDifficulty ∷ Int
   , _approachRate ∷ Int
-  , _sliderMultiplier ∷ Float
-  , _sliderTickRate ∷ Float
+  , _sliderMultiplier ∷ Double
+  , _sliderTickRate ∷ Double
   } deriving (Show, Eq)
 
 type EventCommand = Text
@@ -82,7 +82,7 @@ data Events = Events [(EventObject, [EventCommand])]
 
 data TimingPoint = TimingPoint
   { _offset ∷ Int
-  , _millisecondsPerBeat ∷ Float
+  , _millisecondsPerBeat ∷ Double
   , _meter ∷ Int
   , _sampleType ∷ Int
   , _timingSampleSet ∷ Int
