@@ -50,6 +50,7 @@ spec = do
                        , _sampleSet = "Soft"
                        , _stackLeniency = 0.5
                        , _mode = 0
+                       , _epilepsyWarning = Nothing
                        , _letterboxInBreaks = True
                        , _widescreenStoryboard = Nothing})
 
@@ -70,6 +71,9 @@ spec = do
       it "modeP" . property $ numProp modeP "Mode: "
 
       it "inheritedP" . property $ boolProp inheritedP "Inherited: "
+
+      it "epilepsyWarningP" . property $
+        boolProp epilepsyWarningP "EpilepsyWarning: "
 
       it "letterboxInBreaksP" . property $
         boolProp letterboxInBreaksP "LetterboxInBreaks: "
