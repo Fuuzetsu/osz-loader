@@ -6,6 +6,9 @@ import Control.Applicative
 import Data.Text
 import Data.Attoparsec.Text
 
+opt ∷ Parser a → Parser (Maybe a)
+opt p = (Just <$> p <* endOfLine) <|> return Nothing
+
 takeRestOfLine ∷ Parser Text
 takeRestOfLine = takeTill isEndOfLine
 

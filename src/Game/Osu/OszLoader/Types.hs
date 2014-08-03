@@ -27,15 +27,15 @@ data Editor = Editor
 
 data Metadata = Metadata
   { _title ∷ Text
-  , _titleUnicode ∷ Text
+  , _titleUnicode ∷ Maybe Text
   , _artist ∷ Text
-  , _artistUnicode ∷ Text
+  , _artistUnicode ∷ Maybe Text
   , _creator ∷ Text
   , _version ∷ Text
   , _source ∷ Text
   , _tags ∷ [Text]
-  , _beatmapId ∷ Int
-  , _beatmapSetId ∷ Int
+  , _beatmapId ∷ Maybe Int
+  , _beatmapSetId ∷ Maybe Int
   } deriving (Show, Eq)
 
 data Difficulty = Difficulty
