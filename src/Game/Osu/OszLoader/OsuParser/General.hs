@@ -19,7 +19,7 @@ generalSection = do
   sl ← stackLeniencyP <* endOfLine
   m ← modeP <* endOfLine
   lb ← letterboxInBreaksP <* endOfLine
-  ws ← widescreenStoryboardP
+  ws ← (Just <$> widescreenStoryboardP <* endOfLine) <|> return Nothing
   return $ General { _audioFilename = af
                    , _audioLeadIn = ali
                    , _previewTime = pt
@@ -58,6 +58,5 @@ inheritedP = "Inherited: " *> boolIntParser
 letterboxInBreaksP ∷ Parser Bool
 letterboxInBreaksP = "LetterboxInBreaks: " *> boolIntParser
 
-widescreenStoryboardP ∷ Parser (Maybe Bool)
-widescreenStoryboardP = "WidescreenStoryboard: " *> (Just <$> boolIntParser)
-                        <|> return Nothing
+widescreenStoryboardP ∷ Parser Bool
+widescreenStoryboardP = "WidescreenStoryboard: " *> boolIntParser

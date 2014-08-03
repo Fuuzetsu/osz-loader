@@ -38,11 +38,6 @@ stringProp p t s = parseOnly p (pack tx) `shouldBe` Right cs
   where cs = Prelude.filter (not . isEndOfLine) s
         tx = t ++ cs
 
-maybeBoolProp p t b = parseOnly p tx `shouldBe` r
-  where (tx, r) = case b of
-          Nothing → ("", Right Nothing)
-          Just b' → (t `append` if b' then "1" else "0", Right (Just b'))
-
 spec ∷ Spec
 spec = do
   describe "General section" $ do
@@ -80,4 +75,4 @@ spec = do
         boolProp letterboxInBreaksP "LetterboxInBreaks: "
 
       it "widescreenStoryboardP" . property $
-        maybeBoolProp widescreenStoryboardP "WidescreenStoryboard: "
+        boolProp widescreenStoryboardP "WidescreenStoryboard: "
