@@ -19,6 +19,7 @@ library
                        Game.Osu.OszLoader.OsuParser.Colours
                        Game.Osu.OszLoader.OsuParser.Difficulty
                        Game.Osu.OszLoader.OsuParser.Editor
+                       Game.Osu.OszLoader.OsuParser.Events
                        Game.Osu.OszLoader.OsuParser.General
                        Game.Osu.OszLoader.OsuParser.HitObjects
                        Game.Osu.OszLoader.OsuParser.Metadata
@@ -49,6 +50,7 @@ test-suite spec
       Game.Osu.OszLoader.OsuParser.ColoursSpec
       Game.Osu.OszLoader.OsuParser.DifficultySpec
       Game.Osu.OszLoader.OsuParser.EditorSpec
+      Game.Osu.OszLoader.OsuParser.EventsSpec
       Game.Osu.OszLoader.OsuParser.GeneralSpec
       Game.Osu.OszLoader.OsuParser.HitObjectsSpec
       Game.Osu.OszLoader.OsuParser.MetadataSpec

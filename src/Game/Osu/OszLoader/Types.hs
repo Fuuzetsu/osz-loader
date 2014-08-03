@@ -51,6 +51,10 @@ data Difficulty = Difficulty
 
 type EventCommand = Text
 
+data EventBackground = StaticBg Int Int FilePath (Maybe Int) (Maybe Int)
+                     | VideoBg Int FilePath
+                     deriving (Show, Eq)
+
 data EventLayer = Background | Fail | Pass | Foreground
                 deriving (Show, Eq)
 
@@ -79,7 +83,15 @@ data EventObject = BasicImage { _layer ∷ EventLayer
                                }
                  deriving (Show, Eq)
 
-data Events = Events [(EventObject, [EventCommand])]
+data EventSample = EventSample { _evSample1 ∷ Int
+                               , _evSample2 ∷ Int
+                               , _sampleFilePath ∷ FilePath
+                               , _sampleVolume ∷ Int
+                               } deriving (Show, Eq)
+
+data Events = Events [EventBackground]
+                     [(EventObject, [EventCommand])]
+                     [EventSample]
             deriving (Show, Eq)
 
 data TimingPoint = TimingPoint

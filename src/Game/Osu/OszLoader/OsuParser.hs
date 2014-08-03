@@ -17,7 +17,9 @@ import Game.Osu.OszLoader.OsuParser.General
 -- >>> :set -XUnicodeSyntax
 
 
-parseOsu ∷ Text → Either String OsuMap
+parseOsu ∷ Text -- ^ .osu file content
+         → Maybe Text -- ^ .osb file content if any
+         → Either String OsuMap
 parseOsu = parseOnly osuParser
 
 osuParser ∷ Parser OsuMap
