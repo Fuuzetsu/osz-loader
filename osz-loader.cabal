@@ -16,6 +16,7 @@ cabal-version:       >=1.10
 library
   exposed-modules:     Game.Osu.OszLoader
                        Game.Osu.OszLoader.OsuParser
+                       Game.Osu.OszLoader.OsuParser.Colours
                        Game.Osu.OszLoader.OsuParser.Difficulty
                        Game.Osu.OszLoader.OsuParser.Editor
                        Game.Osu.OszLoader.OsuParser.General
@@ -44,6 +45,7 @@ test-suite spec
       -DTEST
 
   other-modules:
+      Game.Osu.OszLoader.OsuParser.ColoursSpec
       Game.Osu.OszLoader.OsuParser.DifficultySpec
       Game.Osu.OszLoader.OsuParser.EditorSpec
       Game.Osu.OszLoader.OsuParser.GeneralSpec
