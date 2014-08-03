@@ -18,11 +18,11 @@ data General = General
   } deriving (Show, Eq)
 
 data Editor = Editor
-  { _bookmarks ∷ Int
+  { _bookmarks ∷ [Int]
   , _distanceSpacing ∷ Double
   , _beatDivisor ∷ Int
   , _gridSize ∷ Int
-  , _timelineZoom ∷ Int
+  , _timelineZoom ∷ Maybe Int
   } deriving (Show, Eq)
 
 data Metadata = Metadata

@@ -6,7 +6,7 @@ import Control.Applicative
 import Data.Text
 import Data.Attoparsec.Text
 import Game.Osu.OszLoader.Types
-import  Game.Osu.OszLoader.OsuParser.General
+import Game.Osu.OszLoader.OsuParser.General
 
 -- $setup
 -- >>> import Control.Applicative
