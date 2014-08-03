@@ -3,15 +3,13 @@
 module Game.Osu.OszLoader.OsuParser.Editor where
 
 import Control.Applicative
-import Data.Text
 import Data.Attoparsec.Text
 import Game.Osu.OszLoader.Types
-import Game.Osu.OszLoader.OsuParser.Utils
 
 editorSection ∷ Parser Editor
 editorSection = do
   _ ← "[Editor]" <* endOfLine
-  b ← bookmarksP <* endOfLine
+  b ← (bookmarksP <* endOfLine) <|> return []
   ds ← distanceSpacingP <* endOfLine
   bd ← beatDivisorP <* endOfLine
   gs ← gridSizeP <* endOfLine
