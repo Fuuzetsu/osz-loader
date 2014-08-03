@@ -3,7 +3,6 @@
 module Game.Osu.OszLoader.OsuParser.DifficultySpec (spec) where
 
 import Data.Attoparsec.Text
-import Data.Char (isSpace)
 import Data.Text hiding (map, filter, null)
 import Game.Osu.OszLoader.OsuParser.Difficulty
 import Game.Osu.OszLoader.Types
@@ -22,12 +21,9 @@ difficultySample = Data.Text.concat
   , "SliderTickRate:0.5\n"
   ]
 
+numProp ∷ (Show a, Eq a) ⇒ Parser a → Text → Positive a → Expectation
 numProp p t (Positive x) = parseOnly p tx `shouldBe` Right x
   where tx = t `append` pack (show x)
-
-textProp p t s = parseOnly p tx `shouldBe` Right cs
-  where cs = pack $ Prelude.filter (not . isEndOfLine) s
-        tx = t `append` cs
 
 spec ∷ Spec
 spec = do
@@ -37,7 +33,7 @@ spec = do
         Right (Difficulty { _hpDrainRate = 8
                           , _circleSize = 4
                           , _overallDifficulty = 8
-                          , _approachRate = 8
+                          , _approachRate = Just 8
                           , _sliderMultiplier = 1.8
                           , _sliderTickRate = 0.5})
 

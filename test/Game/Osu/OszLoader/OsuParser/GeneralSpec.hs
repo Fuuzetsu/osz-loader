@@ -24,16 +24,20 @@ generalSample = Data.Text.concat
   ]
 
 
+numProp ∷ (Show a, Eq a) ⇒ Parser a → Text → Positive a → Expectation
 numProp p t (Positive x) = parseOnly p tx `shouldBe` Right x
   where tx = t `append` pack (show x)
 
+boolProp ∷ Parser Bool → Text → Bool → Expectation
 boolProp p t b = parseOnly p tx `shouldBe` Right b
   where tx = t `append` if b then "1" else "0"
 
+textProp ∷ Parser Text → Text → [Char] → Expectation
 textProp p t s = parseOnly p tx `shouldBe` Right cs
   where cs = pack $ Prelude.filter (not . isEndOfLine) s
         tx = t `append` cs
 
+stringProp ∷ Parser [Char] → [Char] → [Char] → Expectation
 stringProp p t s = parseOnly p (pack tx) `shouldBe` Right cs
   where cs = Prelude.filter (not . isEndOfLine) s
         tx = t ++ cs

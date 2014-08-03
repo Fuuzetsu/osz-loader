@@ -24,3 +24,6 @@ skipping p = (p *> return ()) <|> return ()
 
 quotedFP ∷ Parser FilePath
 quotedFP = unpack <$> (char '"' *> takeTill (== '"') <* char '"')
+
+decCom ∷ Parser Int
+decCom = decimal <* char ','

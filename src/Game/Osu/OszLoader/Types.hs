@@ -44,7 +44,7 @@ data Difficulty = Difficulty
   { _hpDrainRate ∷ Int
   , _circleSize ∷ Int
   , _overallDifficulty ∷ Int
-  , _approachRate ∷ Int
+  , _approachRate ∷ Maybe Int
   , _sliderMultiplier ∷ Double
   , _sliderTickRate ∷ Double
   } deriving (Show, Eq)
@@ -89,10 +89,15 @@ data EventSample = EventSample { _evSample1 ∷ Int
                                , _sampleVolume ∷ Int
                                } deriving (Show, Eq)
 
-data Events = Events [EventBackground]
-                     [(EventObject, [EventCommand])]
-                     [EventSample]
-            deriving (Show, Eq)
+type EventsBackgroundColour = (Int, Int, Int, Int, Int)
+type EventBreakPeriod = (Int, Int, Int)
+
+data Events = Events { _backgroundEvents ∷ [EventBackground]
+                     , _breakPeriods ∷ [EventBreakPeriod]
+                     , _storyboardEvents ∷ [(EventObject, [EventCommand])]
+                     , _eventSamples ∷ [EventSample]
+                     , _colourTransformations ∷ [EventsBackgroundColour]
+                     } deriving (Show, Eq)
 
 data TimingPoint = TimingPoint
   { _offset ∷ Int
@@ -112,7 +117,7 @@ data Colours = Colours { _combo ∷ Map Int (Int, Int, Int) }
 -- just dumping it here until I figure it out
 data HitObject = Circle (Int, Int, Int, Int, Int, (Int, Int, Int, Int))
                | Slider (Int, Int, Int, Int, Int, Text)
-               | Spinner (Int, Int, Int, Int, Int)
+               | Spinner (Int, Int, Int, Int, Int, Maybe Int)
                deriving (Show, Eq)
 
 data OsuMap = OsuMap
@@ -121,6 +126,7 @@ data OsuMap = OsuMap
   , _editor ∷ Editor
   , _metadata ∷ Metadata
   , _difficulty ∷ Difficulty
+  , _events ∷ Events
   , _timingPoints ∷ [TimingPoint]
   , _colours ∷ Colours
   , _hitObjects ∷ [HitObject]

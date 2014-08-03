@@ -5,6 +5,7 @@ module Game.Osu.OszLoader.OsuParser.Difficulty where
 import Control.Applicative
 import Data.Attoparsec.Text
 import Game.Osu.OszLoader.Types
+import Game.Osu.OszLoader.OsuParser.Utils
 
 difficultySection ∷ Parser Difficulty
 difficultySection = do
@@ -12,7 +13,7 @@ difficultySection = do
   hp ← hpDrainRateP <* endOfLine
   cs ← circleSizeP <* endOfLine
   od ← overallDifficultyP <* endOfLine
-  ar ← approachRateP <* endOfLine
+  ar ← opt approachRateP
   sm ← sliderMultiplierP <* endOfLine
   st ← sliderTickRateP <* endOfLine
   return $ Difficulty { _hpDrainRate = hp

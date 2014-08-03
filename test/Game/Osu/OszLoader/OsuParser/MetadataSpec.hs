@@ -22,9 +22,11 @@ metadataSample = Data.Text.concat
   , "Tags:koko6162006 Muya Lunet S_o_r_d_a\n"
   ]
 
+numProp ∷ (Show a, Eq a) ⇒ Parser a → Text → Positive a → Expectation
 numProp p t (Positive x) = parseOnly p tx `shouldBe` Right x
   where tx = t `append` pack (show x)
 
+textProp ∷ Parser Text → Text → [Char] → Expectation
 textProp p t s = parseOnly p tx `shouldBe` Right cs
   where cs = pack $ Prelude.filter (not . isEndOfLine) s
         tx = t `append` cs

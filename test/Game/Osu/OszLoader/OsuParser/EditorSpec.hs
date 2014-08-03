@@ -21,6 +21,7 @@ editorSample = Data.Text.concat
   ]
 
 
+numProp ∷ (Show a, Eq a) ⇒ Parser a → Text → Positive a → Expectation
 numProp p t (Positive x) = parseOnly p tx `shouldBe` Right x
   where tx = t `append` pack (show x)
 

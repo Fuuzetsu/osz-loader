@@ -60,6 +60,7 @@ test-suite spec
   build-depends:
       attoparsec
     , base
+    , containers
     , hspec
     , QuickCheck == 2.*
     , text

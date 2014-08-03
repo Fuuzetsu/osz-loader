@@ -3,46 +3,56 @@
 module Game.Osu.OszLoader.OsuParser where
 
 import Control.Applicative
-import Data.Text
 import Data.Attoparsec.Text
-import Game.Osu.OszLoader.Types
+import Data.Text
+import Game.Osu.OszLoader.OsuParser.Colours
+import Game.Osu.OszLoader.OsuParser.Difficulty
+import Game.Osu.OszLoader.OsuParser.Editor
+import Game.Osu.OszLoader.OsuParser.Events
 import Game.Osu.OszLoader.OsuParser.General
-
--- $setup
--- >>> import Control.Applicative
--- >>> import Data.Attoparsec.Text
--- >>> import Data.Text
--- >>> import Test.QuickCheck
--- >>> :set -XOverloadedStrings
--- >>> :set -XUnicodeSyntax
-
+import Game.Osu.OszLoader.OsuParser.HitObjects
+import Game.Osu.OszLoader.OsuParser.Metadata
+import Game.Osu.OszLoader.OsuParser.TimingPoint
+import Game.Osu.OszLoader.Types
 
 parseOsu ∷ Text -- ^ .osu file content
          → Maybe Text -- ^ .osb file content if any
          → Either String OsuMap
-parseOsu = parseOnly osuParser
+parseOsu t mt = case parseOnly osuParser t of
+  Left m → Left $ "Parsing .osu file content failed with: " ++ m
+  Right om → case mt of
+    Nothing → Right om
+    Just t' → case parseOnly (skipSpace *> osbEventsSectionP) t' of
+      Left m → Left $ "Parsing .osb file content failed with: " ++ m
+      Right (obs, smps) →
+        Right om { _events = (_events om) { _storyboardEvents = obs
+                                          , _eventSamples = smps
+                                          }
+                 }
 
 osuParser ∷ Parser OsuMap
 osuParser = do
-  fv ← fileFormat
-  skipSpace
-  gen ← generalSection
+  fv ← "osu file format v" *> decimal <* skipSpace
+  gs ← generalSection <* skipSpace
+  es ← editorSection <* skipSpace
+  ms ← metadataSection <* skipSpace
+  ds ← difficultySection <* skipSpace
+  (back, br, bcs) ← osuEventsSectionP <* skipSpace
+  ts ← timingPointSection <* skipSpace
+  cs ← coloursSection <* skipSpace
+  hs ← hitObjectsSection
   return $ OsuMap { _formatVersion = fv
-                  , _general = gen
-                  , _editor = undefined
-                  , _metadata = undefined
-                  , _difficulty = undefined
-                  , _timingPoints = undefined
-                  , _colours = undefined
-                  , _hitObjects = undefined
+                  , _general = gs
+                  , _editor = es
+                  , _metadata = ms
+                  , _difficulty = ds
+                  , _events = Events { _backgroundEvents = back
+                                     , _breakPeriods = br
+                                     , _storyboardEvents = []
+                                     , _eventSamples = []
+                                     , _colourTransformations = bcs
+                                     }
+                  , _timingPoints = ts
+                  , _colours = cs
+                  , _hitObjects = hs
                   }
-
-{-|
-Parses file format version. We currently don't change parsing
-behaviour based on this but it's there for information.
-
->>> parseOnly fileFormat "osu file format v7"
-Right 7
--}
-fileFormat ∷ Parser Int
-fileFormat = "osu file format v" *> decimal

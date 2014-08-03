@@ -9,14 +9,23 @@ import Data.Attoparsec.Text hiding (Fail)
 import Game.Osu.OszLoader.Types
 import Game.Osu.OszLoader.OsuParser.Utils
 
-parseOsb ∷ Text → Either String ([(EventObject, [EventCommand])], [EventSample])
-parseOsb t = parseOnly p t
-  where
-    p = do
-      _ ← "[Events]" <* endOfLine
-      evs ← eventsP
-      sps ← samplesP
-      return (evs, sps)
+-- | Parses out the Events section items usually found in .osu files.
+-- Storyboarding sections should be parsed separately from .osb files
+-- and then the result joined together into 'Events'.
+osuEventsSectionP ∷ Parser ([EventBackground],
+                            [EventBreakPeriod],
+                            [EventsBackgroundColour])
+osuEventsSectionP = do
+  _ ← "[Events]" <* endOfLine
+  (,,) <$> skipComments (backgroundEventP <* endOfLine)
+       <*> skipComments (breakP <* endOfLine)
+       <*> skipComments (backgroundColourP <* endOfLine)
+
+skipComments ∷ Parser a → Parser [a]
+skipComments p = many $ skipping (many commentP) *> p
+
+osbEventsSectionP ∷ Parser ([(EventObject, [EventCommand])], [EventSample])
+osbEventsSectionP = "[Events]" *> endOfLine >> (,) <$> eventsP <*> samplesP
 
 commentP ∷ Parser Text
 commentP = "//" *> takeRestOfLine <* skipping endOfLine
@@ -107,9 +116,6 @@ indentP = char '_' <|> char ' '
 
 breakP ∷ Parser (Int, Int, Int)
 breakP = (,,) <$> decCom <*> decCom <*> decimal
-
-decCom ∷ Parser Int
-decCom = decimal <* char ','
 
 backgroundEventP ∷ Parser EventBackground
 backgroundEventP = video <|> static
