@@ -1,5 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeOperators #-}
 module Game.Osu.OszLoader.Types where
 
 import Data.Map (Map)
@@ -95,10 +96,10 @@ data Colours = Colours { _combo ∷ Map Int (Int, Int, Int) }
                deriving (Show, Eq)
 
 -- | What the raw data means does not seem to be documented so I'm
--- just dumping raw data until I figure it out.
-data HitObject = Circle { _hitObjectRawData ∷ Text }
-               | Slider { _hitObjectRawData ∷ Text }
-               | Spinner { _hitObjectRawData ∷ Text }
+-- just dumping it here until I figure it out
+data HitObject = Circle (Int, Int, Int, Int, Int, (Int, Int, Int, Int))
+               | Slider (Int, Int, Int, Int, Int, Text)
+               | Spinner (Int, Int, Int, Int, Int)
                deriving (Show, Eq)
 
 data OsuMap = OsuMap
