@@ -33,5 +33,5 @@ beatDivisorP = "BeatDivisor: " *> decimal
 gridSizeP ∷ Parser Int
 gridSizeP = "GridSize: " *> decimal
 
-timelineZoomP ∷ Parser Int
-timelineZoomP = "TimelineZoom: " *> decimal
+timelineZoomP ∷ Parser Double
+timelineZoomP = "TimelineZoom: " *> double

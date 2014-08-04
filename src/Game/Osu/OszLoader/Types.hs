@@ -24,7 +24,7 @@ data Editor = Editor
   , _distanceSpacing ∷ Double
   , _beatDivisor ∷ Int
   , _gridSize ∷ Int
-  , _timelineZoom ∷ Maybe Int
+  , _timelineZoom ∷ Maybe Double
   } deriving (Show, Eq)
 
 data Metadata = Metadata
