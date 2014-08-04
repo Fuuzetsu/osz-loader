@@ -6,17 +6,23 @@ import Control.Applicative
 import Data.Attoparsec.Text
 import Data.Map
 import Game.Osu.OszLoader.Types
+import Game.Osu.OszLoader.OsuParser.Utils
 
 coloursSection ∷ Parser Colours
 coloursSection = do
   _ ← "[Colours]" <* endOfLine
   cs ← many (comboP <* endOfLine)
-  return $ Colours { _combo = fromList cs }
+  sbs ← opt sliderBorderP
+  return $ Colours { _combo = fromList cs
+                   , _sliderBorder = sbs
+                   }
+
+sliderBorderP ∷ Parser (Int, Int, Int)
+sliderBorderP = (,,) <$> ("SliderBorder : " *> decCom) <*> decCom <*> decimal
+
 
 comboP ∷ Parser (Int, (Int, Int, Int))
 comboP = do
   i ← "Combo" *> decimal <* " : "
-  r ← decimal <* ","
-  g ← decimal <* ","
-  b ← decimal
-  return (i, (r, g, b))
+  rgb ← (,,) <$> decCom <*> decCom <*> decimal
+  return (i, rgb)

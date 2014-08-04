@@ -110,7 +110,10 @@ data TimingPoint = TimingPoint
   , _inherited ∷ Bool
   } deriving (Show, Eq)
 
-data Colours = Colours { _combo ∷ Map Int (Int, Int, Int) }
+data Colours = Colours { _combo ∷ Map Int (Int, Int, Int)
+                       , _sliderBorder ∷ Maybe (Int, Int, Int)
+                       -- ^ spotted in v9
+                       }
                deriving (Show, Eq)
 
 -- | What the raw data means does not seem to be documented so I'm
