@@ -44,7 +44,7 @@ data Difficulty = Difficulty
   { _hpDrainRate ∷ Int
   , _circleSize ∷ Double
   , _overallDifficulty ∷ Int
-  , _approachRate ∷ Maybe Int
+  , _approachRate ∷ Maybe Double
   , _sliderMultiplier ∷ Double
   , _sliderTickRate ∷ Double
   } deriving (Show, Eq)

@@ -33,8 +33,8 @@ circleSizeP = "CircleSize:" *> double
 overallDifficultyP  ∷ Parser Int
 overallDifficultyP = "OverallDifficulty:" *> decimal
 
-approachRateP  ∷ Parser Int
-approachRateP = "ApproachRate:" *> decimal
+approachRateP  ∷ Parser Double
+approachRateP = "ApproachRate:" *> double
 
 sliderMultiplierP ∷ Parser Double
 sliderMultiplierP = "SliderMultiplier:" *> double
