@@ -121,7 +121,7 @@ backgroundEventP ∷ Parser EventBackground
 backgroundEventP = video <|> static
   where
     mc = optInline (char ',' *> decimal)
-    video = VideoBg <$> ("Video," *> decCom) <*> quotedFP
+    video = VideoBg <$> ("Video," *> signed decCom) <*> quotedFP
     static = StaticBg <$> decCom <*> decCom <*> quotedFP <*> mc <*> mc
 
 backgroundColourP ∷ Parser (Int, Int, Int, Int, Int)
