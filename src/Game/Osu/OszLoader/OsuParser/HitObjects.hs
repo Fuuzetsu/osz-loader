@@ -30,18 +30,19 @@ spinnerP = do
   n6 ← optInline (char ',' *> decimal)
   return (n1, n2, n3, n4, n5, n6)
 
-circleP ∷ Parser (Int, Int, Int, Int, Int, (Int, Int, Int, Int))
+circleP ∷ Parser (Int, Int, Int, Int, Int, Maybe Int, (Int, Int, Int, Int))
 circleP = do
   n1 ← decCom
   n2 ← decCom
   n3 ← decCom
   n4 ← decCom
   n5 ← decCom
-  n6 ← decimal <* char ':'
+  n6 ← optInline decCom
   n7 ← decimal <* char ':'
   n8 ← decimal <* char ':'
   n9 ← decimal <* char ':'
-  return (n1, n2, n3, n4, n5, (n6, n7, n8, n9))
+  n10 ← decimal <* char ':'
+  return (n1, n2, n3, n4, n5, n6, (n7, n8, n9, n10))
 
 sliderP ∷ Parser (Int, Int, Int, Int, Int, Text)
 sliderP = do

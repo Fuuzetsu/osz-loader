@@ -32,7 +32,10 @@ spec = do
 
       it "circleP" $ do
         parseOnly circleP "164,260,2434,1,0,0:0:0:0:"
-          `shouldBe` Right (164,260,2434,1,0,(0,0,0,0))
+          `shouldBe` Right (164,260,2434,1,0,Nothing,(0,0,0,0))
+
+        parseOnly circleP "164,260,2434,1,0,7,0:0:0:0:"
+          `shouldBe` Right (164,260,2434,1,0,Just 7,(0,0,0,0))
 
     it "can parse the provided sample" $ do
       parseOnly hitObjectsSection hitObjectsSample `shouldBe`

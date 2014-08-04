@@ -118,7 +118,8 @@ data Colours = Colours { _combo ∷ Map Int (Int, Int, Int)
 
 -- | What the raw data means does not seem to be documented so I'm
 -- just dumping it here until I figure it out
-data HitObject = Circle (Int, Int, Int, Int, Int, (Int, Int, Int, Int))
+data HitObject = Circle (Int, Int, Int, Int, Int, Maybe Int,
+                         (Int, Int, Int, Int))
                | Slider (Int, Int, Int, Int, Int, Text)
                | Spinner (Int, Int, Int, Int, Int, Maybe Int)
                deriving (Show, Eq)
