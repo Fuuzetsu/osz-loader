@@ -27,8 +27,8 @@ difficultySection = do
 hpDrainRateP ∷ Parser Int
 hpDrainRateP = "HPDrainRate:" *> decimal
 
-circleSizeP  ∷ Parser Int
-circleSizeP = "CircleSize:" *> decimal
+circleSizeP  ∷ Parser Double
+circleSizeP = "CircleSize:" *> double
 
 overallDifficultyP  ∷ Parser Int
 overallDifficultyP = "OverallDifficulty:" *> decimal

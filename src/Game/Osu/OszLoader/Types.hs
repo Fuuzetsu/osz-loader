@@ -42,7 +42,7 @@ data Metadata = Metadata
 
 data Difficulty = Difficulty
   { _hpDrainRate ∷ Int
-  , _circleSize ∷ Int
+  , _circleSize ∷ Double
   , _overallDifficulty ∷ Int
   , _approachRate ∷ Maybe Int
   , _sliderMultiplier ∷ Double
