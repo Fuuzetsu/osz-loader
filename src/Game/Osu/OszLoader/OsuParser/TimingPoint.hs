@@ -30,11 +30,11 @@ timingPointP = do
                        , _inherited = inh
                        }
 
-offsetP ∷ Parser Int
-offsetP = decimal
+offsetP ∷ Parser Double
+offsetP = double
 
 millisecondsPerBeatP ∷ Parser Double
-millisecondsPerBeatP = double
+millisecondsPerBeatP = signed double
 
 meterP ∷ Parser Int
 meterP = decimal

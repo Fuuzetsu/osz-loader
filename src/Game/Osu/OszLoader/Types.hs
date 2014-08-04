@@ -100,7 +100,7 @@ data Events = Events { _backgroundEvents ∷ [EventBackground]
                      } deriving (Show, Eq)
 
 data TimingPoint = TimingPoint
-  { _offset ∷ Int
+  { _offset ∷ Double
   , _millisecondsPerBeat ∷ Double
   , _meter ∷ Int
   , _sampleType ∷ Int
