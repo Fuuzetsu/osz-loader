@@ -50,5 +50,7 @@ sliderP = do
   n3 ← decCom
   n4 ← decCom
   n5 ← decCom
-  t ← "B|" *> takeRestOfLine
-  return (n1, n2, n3, n4, n5, "B|" `append` t)
+  (c, t) ← (,) <$> curvePrefix <*> takeRestOfLine
+  return (n1, n2, n3, n4, n5, c `cons` '|' `cons` t)
+  where
+    curvePrefix = (char 'B' <|> char 'L' <|> char 'P') <* char '|'
