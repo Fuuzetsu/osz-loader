@@ -14,8 +14,9 @@ data General = General
   , _sampleSet ∷ Text
   , _stackLeniency ∷ Double
   , _mode ∷ Int
-  , _epilepsyWarning ∷ Maybe Bool
   , _letterboxInBreaks ∷ Bool
+  , _epilepsyWarning ∷ Maybe Bool
+  , _specialStyle ∷ Maybe Bool
   , _widescreenStoryboard ∷ Maybe Bool
   } deriving (Show, Eq)
 

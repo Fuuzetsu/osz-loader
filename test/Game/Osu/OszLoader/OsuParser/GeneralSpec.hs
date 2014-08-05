@@ -54,8 +54,9 @@ spec = do
                        , _sampleSet = "Soft"
                        , _stackLeniency = 0.5
                        , _mode = 0
-                       , _epilepsyWarning = Nothing
                        , _letterboxInBreaks = True
+                       , _epilepsyWarning = Nothing
+                       , _specialStyle = Nothing
                        , _widescreenStoryboard = Nothing})
 
     context "subparsers" $ do
@@ -81,6 +82,9 @@ spec = do
 
       it "letterboxInBreaksP" . property $
         boolProp letterboxInBreaksP "LetterboxInBreaks: "
+
+      it "specialStyleP" . property $
+        boolProp specialStyleP "SpecialStyle: "
 
       it "widescreenStoryboardP" . property $
         boolProp widescreenStoryboardP "WidescreenStoryboard: "

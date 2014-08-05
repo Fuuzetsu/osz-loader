@@ -18,9 +18,10 @@ generalSection = do
   ss ← sampleSetP <* endOfLine
   sl ← stackLeniencyP <* endOfLine
   m ← modeP <* endOfLine
-  ep ← (Just <$> epilepsyWarningP <* endOfLine) <|> return Nothing
+  ep ← opt epilepsyWarningP
   lb ← letterboxInBreaksP <* endOfLine
-  ws ← (Just <$> widescreenStoryboardP <* endOfLine) <|> return Nothing
+  sp ← opt specialStyleP
+  ws ← opt widescreenStoryboardP
   return $ General { _audioFilename = af
                    , _audioLeadIn = ali
                    , _previewTime = pt
@@ -30,6 +31,7 @@ generalSection = do
                    , _mode = m
                    , _letterboxInBreaks = lb
                    , _epilepsyWarning = ep
+                   , _specialStyle = sp
                    , _widescreenStoryboard = ws
                    }
 
@@ -59,6 +61,9 @@ inheritedP = "Inherited: " *> boolIntParser
 
 epilepsyWarningP ∷ Parser Bool
 epilepsyWarningP = "EpilepsyWarning: " *> boolIntParser
+
+specialStyleP ∷ Parser Bool
+specialStyleP = "SpecialStyle: " *> boolIntParser
 
 letterboxInBreaksP ∷ Parser Bool
 letterboxInBreaksP = "LetterboxInBreaks: " *> boolIntParser
