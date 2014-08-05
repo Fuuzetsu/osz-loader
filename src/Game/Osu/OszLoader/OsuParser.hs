@@ -33,14 +33,15 @@ parseOsu t mt = case parseOnly osuParser t of
 osuParser ∷ Parser OsuMap
 osuParser = do
   fv ← "osu file format v" *> decimal <* skipSpace
-  gs ← generalSection <* skipSpace
-  es ← editorSection <* skipSpace
-  ms ← metadataSection <* skipSpace
-  ds ← difficultySection <* skipSpace
-  (back, br, bcs) ← osuEventsSectionP <* skipSpace
-  ts ← timingPointSection <* skipSpace
-  cs ← coloursSection <* skipSpace
-  hs ← hitObjectsSection
+  gs ← (generalSection <?> "generalSection") <* skipSpace
+  es ← (editorSection  <?> "editorSection") <* skipSpace
+  ms ← (metadataSection <?> "metadataSection") <* skipSpace
+  ds ← (difficultySection <?> "difficultySection") <* skipSpace
+  (back, br, bcs) ← (osuEventsSectionP <?> "osuEventsSectionP") <* skipSpace
+  ts ← (timingPointSection <?> "timingPointSection") <* skipSpace
+  cs ← opt (coloursSection <?> "coloursSection") <* skipSpace
+  hs ← (hitObjectsSection <?> "hitObjectsSection")
+  _ ← (skipSpace <* endOfInput) <?> "endOfFile space clear"
   return $ OsuMap { _formatVersion = fv
                   , _general = gs
                   , _editor = es

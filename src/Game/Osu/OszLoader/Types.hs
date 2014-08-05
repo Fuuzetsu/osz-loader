@@ -133,7 +133,7 @@ data OsuMap = OsuMap
   , _difficulty ∷ Difficulty
   , _events ∷ Events
   , _timingPoints ∷ [TimingPoint]
-  , _colours ∷ Colours
+  , _colours ∷ Maybe Colours
   , _hitObjects ∷ [HitObject]
   } deriving (Show, Eq)
 
