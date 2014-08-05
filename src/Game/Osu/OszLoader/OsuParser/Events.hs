@@ -25,7 +25,10 @@ skipComments ∷ Parser a → Parser [a]
 skipComments p = many $ skipping (many commentP) *> p
 
 osbEventsSectionP ∷ Parser ([(EventObject, [EventCommand])], [EventSample])
-osbEventsSectionP = "[Events]" *> endOfLine >> (,) <$> eventsP <*> samplesP
+osbEventsSectionP = do
+  _ ← "[Events]" *> endOfLine
+  r ← (,) <$> eventsP <*> samplesP
+  many commentP *> skipSpace *> endOfInput *> return r
 
 commentP ∷ Parser Text
 commentP = "//" *> takeRestOfLine <* skipping endOfLine
@@ -53,7 +56,7 @@ looptypeP = "Loop" *> ("Forever" *> return LoopForever
 
 
 eventsP ∷ Parser [(EventObject, [EventCommand])]
-eventsP = many $ skipping (many commentP) *> (singleEventP <|> singleEventP)
+eventsP = skipComments (singleEventP <|> singleEventP)
 
 commandsP ∷ Parser [Text]
 commandsP = many (indentP *> takeRestOfLine <* endOfLine)
@@ -97,7 +100,7 @@ spriteP = do
 
 
 samplesP ∷ Parser [EventSample]
-samplesP = many $ skipping (many commentP) *> (sampleP <* endOfLine)
+samplesP = skipComments (sampleP <* endOfLine)
 
 sampleP ∷ Parser EventSample
 sampleP = do
