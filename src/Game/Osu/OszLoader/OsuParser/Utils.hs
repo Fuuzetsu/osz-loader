@@ -16,8 +16,9 @@ takeRestOfLine ∷ Parser Text
 takeRestOfLine = takeTill isEndOfLine
 
 boolIntParser ∷ Parser Bool
-boolIntParser = "0" *> return False
-                <|> "1" *> return True
+boolIntParser = char '0' *> return False
+                <|>
+                decimal *> return True
 
 skipping ∷ Parser a → Parser ()
 skipping p = (p *> return ()) <|> return ()

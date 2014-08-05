@@ -107,8 +107,8 @@ data TimingPoint = TimingPoint
   , _sampleType ∷ Int
   , _timingSampleSet ∷ Int
   , _volume ∷ Int
-  , _kiaiMode ∷ Bool
   , _inherited ∷ Bool
+  , _kiaiMode ∷ Bool
   } deriving (Show, Eq)
 
 data Colours = Colours { _combo ∷ Map Int (Int, Int, Int)

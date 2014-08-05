@@ -12,22 +12,22 @@ timingPointSection = "[TimingPoints]" *> endOfLine *> many timingPointP
 
 timingPointP ∷ Parser TimingPoint
 timingPointP = do
-  ofs ← offsetP <* ","
-  mpb ← millisecondsPerBeatP <* ","
-  met ← meterP <* ","
-  sat ← sampleTypeP <* ","
-  tim ← timingSampleSetP <* ","
-  vol ← volumeP <* ","
-  kia ← kiaiModeP <* ","
-  inh ← inheritedP <* endOfLine
+  ofs ← offsetP <* char ','
+  mpb ← millisecondsPerBeatP <* char ','
+  met ← meterP <* char ','
+  sat ← sampleTypeP <* char ','
+  tim ← timingSampleSetP <* char ','
+  vol ← volumeP <* char ','
+  inh ← inheritedP <* char ','
+  kia ← kiaiModeP <* endOfLine
   return $ TimingPoint { _offset = ofs
                        , _millisecondsPerBeat = mpb
                        , _meter = met
                        , _sampleType = sat
                        , _timingSampleSet = tim
                        , _volume = vol
-                       , _kiaiMode = kia
                        , _inherited = inh
+                       , _kiaiMode = kia
                        }
 
 offsetP ∷ Parser Double
