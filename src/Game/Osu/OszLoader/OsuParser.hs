@@ -4,7 +4,7 @@ module Game.Osu.OszLoader.OsuParser where
 
 import Control.Applicative
 import Data.Attoparsec.Text
-import Data.Text
+import Data.Text hiding (filter, isSuffixOf)
 import Game.Osu.OszLoader.OsuParser.Colours
 import Game.Osu.OszLoader.OsuParser.Difficulty
 import Game.Osu.OszLoader.OsuParser.Editor
@@ -13,6 +13,7 @@ import Game.Osu.OszLoader.OsuParser.General
 import Game.Osu.OszLoader.OsuParser.HitObjects
 import Game.Osu.OszLoader.OsuParser.Metadata
 import Game.Osu.OszLoader.OsuParser.TimingPoint
+import Game.Osu.OszLoader.OsuParser.Utils
 import Game.Osu.OszLoader.Types
 
 parseOsu ∷ Text -- ^ .osu file content
@@ -22,13 +23,16 @@ parseOsu t mt = case parseOnly osuParser t of
   Left m → Left $ "Parsing .osu file content failed with: " ++ m
   Right om → case mt of
     Nothing → Right om
-    Just t' → case parseOnly (skipSpace *> osbEventsSectionP) t' of
+    Just t' → case parseOnly osbParser  t' of
       Left m → Left $ "Parsing .osb file content failed with: " ++ m
       Right (obs, smps) →
         Right om { _events = (_events om) { _storyboardEvents = obs
                                           , _eventSamples = smps
                                           }
                  }
+
+osbParser ∷ Parser ([(EventObject, [EventCommand])], [EventSample])
+osbParser = skipSpace *> osbEventsSectionP <* skipSpace <* endOfInput
 
 osuParser ∷ Parser OsuMap
 osuParser = do
