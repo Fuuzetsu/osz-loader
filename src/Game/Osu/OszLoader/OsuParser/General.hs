@@ -40,7 +40,7 @@ audioLeadInP ∷ Parser Int
 audioLeadInP = "AudioLeadIn: " *> decimal
 
 previewTimeP ∷ Parser Int
-previewTimeP = "PreviewTime: " *> decimal
+previewTimeP = "PreviewTime: " *> signed decimal
 
 countdownP ∷ Parser Bool
 countdownP = "Countdown: " *> boolIntParser
