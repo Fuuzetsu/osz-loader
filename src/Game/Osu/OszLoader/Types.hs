@@ -119,6 +119,11 @@ data Colours = Colours { _combo ∷ Map Int (Int, Int, Int)
 
 -- | What the raw data means does not seem to be documented so I'm
 -- just dumping it here until I figure it out
+--
+-- Note: Second to last spinner values
+-- 0 = small red, 4 big red, 8 = small blue
+-- curves for taiko = hit lines
+-- the Maybe Int are the big spinner (paddles)
 data HitObject = Circle (Int, Int, Int, Int, Int, Maybe Int,
                          (Int, Int, Int, Int, Maybe Int))
                | Slider (Int, Int, Int, Int, Int, Text)
